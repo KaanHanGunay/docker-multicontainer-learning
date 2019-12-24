@@ -15,7 +15,7 @@ after_succes:
     - docker build -t kaanhangunay/multi-worker ./worker
 
     # Docker Hub Login - şifre ve kullanıcı adı tracis ci sitesinde
-    -echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
     - docker push kaanhangunay/multi-client
     - docker push kaanhangunay/multi-nginx
