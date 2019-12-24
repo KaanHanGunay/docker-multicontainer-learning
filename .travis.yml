@@ -8,4 +8,18 @@ before_install:
 script:
     - docker run -e CI=true kaanhangunay/react-docker npm run test
 
+after_succes:
+    - docker build -t kaanhangunay/multi-client ./client
+    - docker build -t kaanhangunay/multi-nginx ./nginx
+    - docker build -t kaanhangunay/multi-server ./server
+    - docker build -t kaanhangunay/multi-worker ./worker
+
+    # Docker Hub Login - şifre ve kullanıcı adı tracis ci sitesinde
+    -echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+    - docker push kaanhangunay/multi-client
+    - docker push kaanhangunay/multi-nginx
+    - docker push kaanhangunay/multi-server
+    - docker push kaanhangunay/multi-worker
+
 language: generic 
